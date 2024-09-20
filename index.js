@@ -31,9 +31,8 @@ app.post("/posts", async (req, res) => {
     });
     res.status(201).json(newPost);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while creating the post." });
+    console.log(error);
+    res.status(500).json({ error: "an error occured" });
   }
 });
 
@@ -49,9 +48,8 @@ app.get("/posts/:id", async (req, res) => {
       res.status(404).json({ error: "Post not found" });
     }
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while fetching the post." });
+    console.log(error);
+    res.status(500).json({ error: "an error occured" });
   }
 });
 
@@ -65,9 +63,8 @@ app.put("/posts/:id", async (req, res) => {
     });
     res.json(updatedPost);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating the post." });
+    console.log(error);
+    res.status(500).json({ error: "an error occured" });
   }
 });
 
@@ -79,9 +76,8 @@ app.delete("/posts/:id", async (req, res) => {
     });
     res.json({ message: "Post deleted successfully." });
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while deleting the post." });
+    console.log(error);
+    res.status(500).json({ error: "an error occured" });
   }
 });
 
