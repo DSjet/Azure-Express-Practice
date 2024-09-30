@@ -15,10 +15,15 @@ app.get("/", (req, res) => {
 
 // Route to get all blog posts
 app.get("/posts", async (req, res) => {
-  const posts = await prisma.blogPost.findMany();
-  res.json(posts);
+  try {
+    const posts = await prisma.blogPost.findMany();
+    res.json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
 });
-
+  
 // Route to create a new blog post
 app.post("/posts", async (req, res) => {
   try {
@@ -40,16 +45,17 @@ app.post("/posts", async (req, res) => {
 app.get("/posts/:id", async (req, res) => {
   try {
     const post = await prisma.blogPost.findUnique({
-      where: { id: req.params.id },
+      where: { id: parseInt(req.params.id) },
     });
+
     if (post) {
       res.json(post);
     } else {
       res.status(404).json({ error: "Post not found" });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "an error occured" });
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
   }
 });
 
